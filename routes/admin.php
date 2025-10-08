@@ -11,6 +11,13 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Admin Authentication Routes
+ */
+
+/**
+ * Public Routes for Guests (Unauthenticated Users)
+ */
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -30,7 +37,10 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
         ->name('password.store');
 });
 
-Route::group(["middleware" => "auth:admin", "prefix" => "admin", "as" => "admin."], function () {
+/**
+ * Protected Routes for Authenticated Admins
+ */
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

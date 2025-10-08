@@ -11,6 +11,13 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * User Authentication Routes
+ */
+
+/**
+ * Public Routes for Guests (Unauthenticated Users)
+ */
 Route::middleware('guest:web')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -35,6 +42,9 @@ Route::middleware('guest:web')->group(function () {
         ->name('password.store');
 });
 
+/**
+ * Protected Routes for Authenticated Users
+ */
 Route::middleware('auth:web')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

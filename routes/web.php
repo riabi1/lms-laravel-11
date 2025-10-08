@@ -1,14 +1,18 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\InstructorDashboardController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * Frontend Routes
+ */
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 
+/**
+ * Dashboard Routes (Protected by Authentication and Role Middleware)
+ */
 Route::group(['middleware' => ['auth', 'verified', 'check.role:student'], 'prefix' => 'student', 'as' => 'student'], function () {
     Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('.dashboard');
 });
@@ -17,5 +21,5 @@ Route::group(['middleware' => ['auth', 'verified', 'check.role:instructor'], 'pr
     Route::get('dashboard', [InstructorDashboardController::class, 'index'])->name('.dashboard');
 });
 
-require __DIR__ . '/auth.php';
-require __DIR__ . '/admin.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
