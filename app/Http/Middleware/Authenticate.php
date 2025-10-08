@@ -27,7 +27,6 @@ class Authenticate implements AuthenticatesRequests
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
      * @return void
      */
     public function __construct(Auth $auth)
@@ -44,14 +43,13 @@ class Authenticate implements AuthenticatesRequests
      */
     public static function using($guard, ...$others)
     {
-        return static::class . ':' . implode(',', [$guard, ...$others]);
+        return static::class.':'.implode(',', [$guard, ...$others]);
     }
 
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @param  string  ...$guards
      * @return mixed
      *
@@ -68,7 +66,6 @@ class Authenticate implements AuthenticatesRequests
      * Determine if the user is logged in to any of the given guards.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $guards
      * @return void
      *
      * @throws \Illuminate\Auth\AuthenticationException
@@ -92,7 +89,6 @@ class Authenticate implements AuthenticatesRequests
      * Handle an unauthenticated user.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $guards
      * @return never
      *
      * @throws \Illuminate\Auth\AuthenticationException
@@ -109,7 +105,6 @@ class Authenticate implements AuthenticatesRequests
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
     protected function redirectTo(Request $request)
@@ -121,6 +116,7 @@ class Authenticate implements AuthenticatesRequests
         if ($request->is('admin') || $request->is('admin/*')) {
             return '/admin/login';
         }
+
         // Default login route
         return '/login';
     }
@@ -128,7 +124,6 @@ class Authenticate implements AuthenticatesRequests
     /**
      * Specify the callback that should be used to generate the redirect path.
      *
-     * @param  callable  $redirectToCallback
      * @return void
      */
     public static function redirectUsing(callable $redirectToCallback)

@@ -22,3 +22,4 @@ yarn-error.log
 /.vscode
 /.zed
 /resources/views/admin-template
+/resources/views/edu-core-frontend
