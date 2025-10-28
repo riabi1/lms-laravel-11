@@ -31,6 +31,7 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
+    @vite(['resources/css/admin.css','resources/js/Admin/admin.js'])
 </head>
 
 <body>

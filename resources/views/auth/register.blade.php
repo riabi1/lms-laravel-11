@@ -1,8 +1,8 @@
 @extends('frontend.layouts.master-without-header-footer')
 @section('content')
     <!--===========================
-                            SIGN UP START
-                        ============================-->
+                                    SIGN UP START
+                                ============================-->
     <section class="wsus__sign_in sign_up">
         <div class="row align-items-center">
             <div class="col-xxl-5 col-xl-6 col-lg-6 wow fadeInLeft">
@@ -15,10 +15,23 @@
             </div>
             <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight">
                 <div class="wsus__sign_form_area">
+                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                aria-selected="true">Student</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">Instructor</button>
+                        </li>
+                    </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <form method="POST" action="{{ route('register') }}">
+                                <input type="hidden" name="type" value="student">
                                 @csrf
                                 <h2>Sign Up<span>!</span></h2>
                                 <p class="new_user">
@@ -79,6 +92,70 @@
                                 </div>
                             </form>
                         </div>
+
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                            aria-labelledby="pills-profile-tab" tabindex="0">
+                            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                                <input type="hidden" name="type" value="instructor">
+                                @csrf
+                                <h2>Sign Up as Instructor<span>!</span></h2>
+                                <p class="new_user">
+                                    {{ __('Already have an account?') }}
+                                    <a href="{{ route('login') }}">{{ __('Sign In') }}</a>
+                                </p>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <x-input-label for="name_instructor" :value="__('Name')" />
+                                            <x-text-input id="name_instructor" class="block mt-1 w-full" type="text"
+                                                name="name" :value="old('name')" required autofocus autocomplete="name"
+                                                placeholder="First name" />
+                                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <x-input-label for="email_instructor" :value="__('Email')" />
+                                            <x-text-input id="email_instructor" class="block mt-1 w-full" type="email"
+                                                name="email" :value="old('email')" required autocomplete="username"
+                                                placeholder="Your email" />
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <x-input-label for="password_instructor" :value="__('Password')" />
+                                            <x-text-input id="password_instructor" class="block mt-1 w-full"
+                                                type="password" name="password" required autocomplete="new-password"
+                                                placeholder="Your password" />
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <x-input-label for="password_confirmation_instructor" :value="__('Confirm Password')" />
+                                            <x-text-input id="password_confirmation_instructor" class="block mt-1 w-full"
+                                                type="password" name="password_confirmation" required
+                                                autocomplete="new-password" placeholder="Confirm password" />
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <label>Document (Education/Certificate)</label>
+                                            <input type="file" placeholder="Document" name="document" required>
+                                            <x-input-error :messages="$errors->get('document')" class="mt-2" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="wsus__login_form_input">
+                                            <button type="submit" class="common_btn mt-3">{{ __('Register') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,6 +163,6 @@
         <a class="back_btn" href="{{ url('/') }}">Back to Home</a>
     </section>
     <!--===========================
-                            SIGN UP END
-                        ============================-->
+                                    SIGN UP END
+                                ============================-->
 @endsection
